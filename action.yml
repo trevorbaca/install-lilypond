@@ -1,0 +1,10 @@
+name: Install LilyPond
+
+description: Installs LilyPond on a GitHub Actions runner
+
+runs:
+  using: composite
+  steps:
+    - name: Install LilyPond
+      run: ./install-lilypond.sh
+      shell: bash
