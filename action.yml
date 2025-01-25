@@ -1,10 +1,24 @@
 name: Install LilyPond
-
 description: Installs LilyPond on a GitHub Actions runner
 
 runs:
   using: composite
   steps:
+    - name: Checkout action repository
+      uses: actions/checkout@v4
+      with:
+        repository: trevorbaca/install-lilypond
+        ref: main
+        path: install-lilypond-temp
+
     - name: Install LilyPond
-      run: ./install-lilypond.sh
+      run: |
+        install-lilypond-temp/install-lilypond.sh
+      shell: bash
+
+    - name: Remove temporary files and move LilyPond to /tmp
+      run: |
+        rm -rf install-lilypond-temp
+        rm -rf *.tar.gz
+        mv  lilypond-* /tmp
       shell: bash
